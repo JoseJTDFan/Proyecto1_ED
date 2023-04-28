@@ -70,7 +70,7 @@ nodoArticulo * listaArticulo::eliminar(string pcodigo){
 	return eliminado;
 }
 
-void listaArticulo::leerArticulo(){
+bool listaArticulo::leerArticulo(){
  	ifstream file("Articulos.txt");
     if (file.is_open()) {
         string line;
@@ -79,10 +79,17 @@ void listaArticulo::leerArticulo(){
             string codigo, categoria, ubicacion;
             int cantidadAlmacen, tiempoFabricacion;
             ss >> codigo >> cantidadAlmacen >> tiempoFabricacion >> categoria >> ubicacion;
+            if (cantidadAlmacen<0 || buscar(codigo)!=NULL){
+            	return false;
+			}
+			else if(categoria!="A" && categoria!="B" && categoria!="C"){
+				return false;
+			}
             insertar(codigo,cantidadAlmacen,tiempoFabricacion,categoria,ubicacion);
-            // Aquí puedes hacer lo que quieras con los valores leídos
+            
         }
     } else {
-        cerr << "No se pudo abrir el archivo." << std::endl;
+        return false;
     }
+    return true;
 }

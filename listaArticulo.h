@@ -25,5 +25,5 @@ struct listaArticulo{
 	void imprimir();
 	nodoArticulo * buscar(string pcodigo);
 	nodoArticulo * eliminar(string pcodigo);
-	void leerArticulo();
+	bool leerArticulo();
 }; 

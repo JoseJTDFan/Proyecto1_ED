@@ -9,8 +9,12 @@ int main(int argc, char *argv[])
 	listaArticulo articulos;
 	
 	
-	articulos.leerArticulo();
-	articulos.imprimir();
+	if(articulos.leerArticulo()==false){
+		cout<<"No se puede iniciar la simulacion";
+	}
+	else{
+		articulos.imprimir();
+	}
 	
 	
 }
