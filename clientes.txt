@@ -1,0 +1,3 @@
+001	XYZ S.A	10
+002	natural	5
+003	Nike	7

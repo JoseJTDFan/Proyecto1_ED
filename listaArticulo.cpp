@@ -53,7 +53,7 @@ nodoArticulo * listaArticulo::buscar(string pcodigo)
 nodoArticulo * listaArticulo::eliminar(string pcodigo){
 	nodoArticulo * eliminado = buscar(pcodigo);
 	
-	if (eliminado != NULL){ // sí lo encontró
+	if (eliminado != NULL){ // se lo encontro
 		if (primerNodo->siguiente == primerNodo) // solo un elemento
 			eliminado->siguiente = eliminado->anterior = NULL;
 		else{
