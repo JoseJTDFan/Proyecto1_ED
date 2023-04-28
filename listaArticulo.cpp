@@ -1,8 +1,7 @@
-////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SÁNCHEZ
+////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SANCHEZ
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
 #include "listaArticulo.h"
-#include "ListaSimple.h"
 
 
 // INSERTAR AL INICIO
@@ -74,7 +73,7 @@ bool listaArticulo::leerArticulo(){
  	ifstream file("Articulos.txt");
     if (file.is_open()) {
         string line;
-        while (std::getline(file, line)) {
+        while (getline(file, line)) {
             stringstream ss(line);
             string codigo, categoria, ubicacion;
             int cantidadAlmacen, tiempoFabricacion;

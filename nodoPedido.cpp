@@ -2,20 +2,20 @@
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
 
-#include "ListaSimple.h"
+#include "nodoPedido.h"
 
-void ListaSimple::insertarAlInicio (string codigo, int cantidad)
+void nodoPedido::insertarAlInicio (string pcodigo, int pcantidad)
     {
             // si no hay elementos
        if (primerNodo == NULL)
        {
         // ambos apuntan al nuevo en memoria
-         primerNodo = new Nodo(codigo, cantidad);
+         primerNodo = new Nodo(pcodigo, pcantidad);
          ultimoNodo = primerNodo; 
          // ambos apuntan al nuevo               
        }
        else{
-         Nodo *nuevo = new Nodo(codigo, cantidad);
+         Nodo *nuevo = new Nodo(pcodigo, pcantidad);
   		// a lo que apunta pN ahora es el segundo
 		// por eso, nuevo->siguiente es pN
          nuevo->siguiente = primerNodo;
@@ -27,20 +27,20 @@ void ListaSimple::insertarAlInicio (string codigo, int cantidad)
       }            
 }// fin metodo
 
-void ListaSimple::insertarAlFinal (string codigo, int cantidad){
+void nodoPedido::insertarAlFinal (string pcodigo, int pcantidad){
 	  	if (primerNodo == NULL){
-	  		primerNodo = ultimoNodo = new Nodo(codigo, cantidad);
+	  		primerNodo = ultimoNodo = new Nodo(pcodigo, pcantidad);
 		}
 		else{
 			Nodo * temp = primerNodo;
 			while (temp->siguiente!=NULL){
 				temp = temp->siguiente;
 			}
-			temp->siguiente = new Nodo(codigo, cantidad);
+			temp->siguiente = new Nodo(pcodigo, pcantidad);
 		}
 }
 
-Nodo * ListaSimple::borrarAlInicio (){
+Nodo * nodoPedido::borrarAlInicio (){
 	Nodo * temp = primerNodo;
 	if (primerNodo==NULL){
 		return NULL;
@@ -54,7 +54,7 @@ Nodo * ListaSimple::borrarAlInicio (){
 	return temp;
 }
 
-Nodo * ListaSimple::borrarAlFinal (){
+Nodo * nodoPedido::borrarAlFinal (){
 	Nodo * temp = primerNodo;
 	if (primerNodo==NULL){
 		return NULL;
@@ -74,7 +74,7 @@ Nodo * ListaSimple::borrarAlFinal (){
 	}
 }
 
-void ListaSimple::imprimir(){
+void nodoPedido::imprimir(){
 	Nodo * tmp = primerNodo;
 	while(tmp != NULL){
 		// aqu� programar lo que necesiten en cada iteraci�n
@@ -84,7 +84,7 @@ void ListaSimple::imprimir(){
 	cout<<endl;
 }
 
-int ListaSimple::largo (void){
+int nodoPedido::largo (void){
 	  Nodo * temp = primerNodo;
 	  int contador = 0;
 	  while (temp!=NULL){
@@ -95,7 +95,7 @@ int ListaSimple::largo (void){
 }
 
 //retorna true si el codigo del argumento est� en la lista
-bool ListaSimple::esta(string nom){
+bool nodoPedido::esta(string nom){
 	Nodo * temp = primerNodo;
 	while (temp!=NULL){
 		if (nom==temp->codigo){
@@ -106,27 +106,27 @@ bool ListaSimple::esta(string nom){
 	return false;
 }
    
-void ListaSimple::insertarEnPosicion (string codigo, int cantidad, int posicion){
+void nodoPedido::insertarEnPosicion (string pcodigo, int pcantidad, int posicion){
 	if (posicion==0){
-		insertarAlInicio (codigo,cantidad);
+		insertarAlInicio (pcodigo, pcantidad);
 	   }
 	else{
 		Nodo * temp = primerNodo;
 		int contador=1;
 		while(temp!=NULL){
 			if (contador==posicion){
-				Nodo * nodoNuevo = new Nodo(codigo, cantidad,temp->siguiente);
+				Nodo * nodoNuevo = new Nodo(pcodigo, pcantidad);
 				temp->siguiente = nodoNuevo;
 				return;
 			}
 			temp=temp->siguiente;
 			contador++;
 		}
-		insertarAlFinal (codigo,cantidad);
+		insertarAlFinal (pcodigo, pcantidad);
 	}
 }
    
-Nodo * ListaSimple::borrarEnPosicion (int posicion){
+Nodo * nodoPedido::borrarEnPosicion (int posicion){
 	if (posicion==0){
 		borrarAlInicio();
 	}

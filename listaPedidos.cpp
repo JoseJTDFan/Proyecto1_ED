@@ -2,20 +2,21 @@
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
 
-#include "ListaSimple.h"
+#include "nodoPedido.h"
+#include "listaPedidos.h"
 
-void ListaSimple::insertarAlInicio (string codigo, int cantidad)
+void listaPedidos::insertarAlInicio (int pnumPedido, string pcodCliente, Nodo * nodo)
     {
             // si no hay elementos
        if (primerNodo == NULL)
        {
         // ambos apuntan al nuevo en memoria
-         primerNodo = new Nodo(codigo, cantidad);
+         primerNodo = new nodoPedido(pnumPedido, pcodCliente, nodo);
          ultimoNodo = primerNodo; 
          // ambos apuntan al nuevo               
        }
        else{
-         Nodo *nuevo = new Nodo(codigo, cantidad);
+         nodoPedido *nuevo = new nodoPedido(pnumPedido, pcodCliente, nodo);
   		// a lo que apunta pN ahora es el segundo
 		// por eso, nuevo->siguiente es pN
          nuevo->siguiente = primerNodo;
@@ -27,21 +28,21 @@ void ListaSimple::insertarAlInicio (string codigo, int cantidad)
       }            
 }// fin metodo
 
-void ListaSimple::insertarAlFinal (string codigo, int cantidad){
+void listaPedidos::insertarAlFinal (int pnumPedido, string pcodCliente, Nodo * nodo){
 	  	if (primerNodo == NULL){
-	  		primerNodo = ultimoNodo = new Nodo(codigo, cantidad);
+	  		primerNodo = ultimoNodo = new nodoPedido(pnumPedido, pcodCliente, nodo);
 		}
 		else{
-			Nodo * temp = primerNodo;
+			nodoPedido * temp = primerNodo;
 			while (temp->siguiente!=NULL){
 				temp = temp->siguiente;
 			}
-			temp->siguiente = new Nodo(codigo, cantidad);
+			temp->siguiente = new nodoPedido(pnumPedido, pcodCliente, nodo);
 		}
 }
 
-Nodo * ListaSimple::borrarAlInicio (){
-	Nodo * temp = primerNodo;
+nodoPedido * listaPedidos::borrarAlInicio (){
+	nodoPedido * temp = primerNodo;
 	if (primerNodo==NULL){
 		return NULL;
 	}
@@ -54,8 +55,8 @@ Nodo * ListaSimple::borrarAlInicio (){
 	return temp;
 }
 
-Nodo * ListaSimple::borrarAlFinal (){
-	Nodo * temp = primerNodo;
+nodoPedido * listaPedidos::borrarAlFinal (){
+	nodoPedido * temp = primerNodo;
 	if (primerNodo==NULL){
 		return NULL;
 	}
@@ -74,18 +75,20 @@ Nodo * ListaSimple::borrarAlFinal (){
 	}
 }
 
-void ListaSimple::imprimir(){
-	Nodo * tmp = primerNodo;
+void listaPedidos::imprimir(){
+	nodoPedido * tmp = primerNodo;
 	while(tmp != NULL){
 		// aquï¿½ programar lo que necesiten en cada iteraciï¿½n
-		cout<<"		Articulo: "<<tmp->codigo<<" - Cantidad: "<<tmp->cantidad<<endl;
+		cout<<"Pedido: "<<tmp->numPedido<<endl;
+		cout<<"Código: "<<tmp->codCliente<<endl;
+		tmp->imprimir();
 		tmp = tmp->siguiente;
 	}
 	cout<<endl;
 }
 
-int ListaSimple::largo (void){
-	  Nodo * temp = primerNodo;
+int listaPedidos::largo (void){
+	  nodoPedido * temp = primerNodo;
 	  int contador = 0;
 	  while (temp!=NULL){
 	    contador++;
@@ -93,49 +96,37 @@ int ListaSimple::largo (void){
 	  }
 	return contador;
 }
-
-//retorna true si el codigo del argumento estï¿½ en la lista
-bool ListaSimple::esta(string nom){
-	Nodo * temp = primerNodo;
-	while (temp!=NULL){
-		if (nom==temp->codigo){
-			return true;
-		   }
-		temp = temp-> siguiente;
-	   }
-	return false;
-}
    
-void ListaSimple::insertarEnPosicion (string codigo, int cantidad, int posicion){
+void listaPedidos::insertarEnPosicion (int pnumPedido, string pcodCliente, Nodo * nodo, int posicion){
 	if (posicion==0){
-		insertarAlInicio (codigo,cantidad);
+		insertarAlInicio (pnumPedido, pcodCliente, nodo);
 	   }
 	else{
-		Nodo * temp = primerNodo;
+		nodoPedido * temp = primerNodo;
 		int contador=1;
 		while(temp!=NULL){
 			if (contador==posicion){
-				Nodo * nodoNuevo = new Nodo(codigo, cantidad,temp->siguiente);
+				nodoPedido * nodoNuevo = new nodoPedido(pnumPedido, pcodCliente, nodo);
 				temp->siguiente = nodoNuevo;
 				return;
 			}
 			temp=temp->siguiente;
 			contador++;
 		}
-		insertarAlFinal (codigo,cantidad);
+		insertarAlFinal (pnumPedido, pcodCliente, nodo);
 	}
 }
    
-Nodo * ListaSimple::borrarEnPosicion (int posicion){
+nodoPedido * listaPedidos::borrarEnPosicion (int posicion){
 	if (posicion==0){
 		borrarAlInicio();
 	}
 	else{
-		Nodo * temp = primerNodo;
+		nodoPedido * temp = primerNodo;
 		int contador=1;
 		while(temp!=NULL){
 			if (contador==posicion){
-				Nodo * nodoBorrado = temp->siguiente;
+				nodoPedido * nodoBorrado = temp->siguiente;
 				temp->siguiente= temp->siguiente->siguiente;
 				nodoBorrado->siguiente = NULL;
 				return nodoBorrado;
@@ -145,4 +136,27 @@ Nodo * ListaSimple::borrarEnPosicion (int posicion){
 		}
 		return borrarAlFinal();
 	}
+}
+
+bool listaPedidos::leerPedidos(){
+    ifstream archivo("Pedidos.txt"); 
+    string linea;
+
+    getline(archivo, linea); // Leer linea
+    int pnumPedido = stoi(linea);
+    
+    getline(archivo, linea);
+    string pcodCliente = linea;
+
+    ListaSimple lista;
+    
+	while (getline(archivo, linea)) {
+        stringstream ss(linea);
+        string pcodigo;
+        int pcantidad;
+        ss >> pcodigo >> pcantidad;
+        //if (buscar(pcodigo)==NULL){
+        lista.insertarAlFinal(pcodigo, pcantidad);
+    }
+    insertarAlFinal(pnumPedido, pcodCliente,lista.primerNodo);
 }

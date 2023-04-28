@@ -1,4 +1,4 @@
-////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SÁNCHEZ
+////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SANCHEZ
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
 
@@ -14,22 +14,21 @@ struct ListaSimple;
 
 // estructura nodo para lista simple
 struct Nodo {
-       string dato; // parte de datos
-       Nodo* siguiente;// puntero para enlazar nodos
-       // constructor
-       Nodo(string d) {
-         dato = d; // asigna los datos
-         siguiente = NULL; // sig es null       
-       }
-       // constructor
-       Nodo(string d, Nodo * _siguiente)  {
-         dato = d; // asigna los datos
-         siguiente = _siguiente; // sig es null       
-       }
-       void imprimir()
-       { 
-	   		cout << "|" << dato << "| -> " ;
-	   }     
+		string codigo; // parte de codigos
+		int cantidad;
+		Nodo* siguiente;// puntero para enlazar nodos
+		// constructor
+		Nodo(string d, int pcantidad) {
+			codigo = d; // asigna los codigos
+			cantidad= pcantidad;
+			siguiente = NULL; // sig es null       
+		}
+		// constructor
+		Nodo(string d, int pcantidad,Nodo * _siguiente)  {
+			codigo = d; // asigna los codigos
+			cantidad = pcantidad;
+			siguiente = _siguiente; // sig es null       
+		}
 };
 
 struct ListaSimple {
@@ -42,14 +41,14 @@ struct ListaSimple {
        }
        
        // funciones
-    void insertarAlInicio (string dato);
-	void insertarAlFinal (string dato);
+    void insertarAlInicio (string codigo, int cantidad);
+	void insertarAlFinal (string codigo, int cantidad);
 	Nodo * borrarAlInicio ();
 	Nodo * borrarAlFinal ();
 	void imprimir();
 	int largo (void);
 	bool esta(string nom);
-	void insertarEnPosicion (string dato, int posicion);
+	void insertarEnPosicion (string codigo, int cantidad, int posicion);
 	Nodo * borrarEnPosicion (int posicion);
 };
 

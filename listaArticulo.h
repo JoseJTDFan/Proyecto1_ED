@@ -1,4 +1,4 @@
-////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SÁNCHEZ
+////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SANCHEZ
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
 #pragma once
@@ -17,7 +17,7 @@ struct listaArticulo{
 	nodoArticulo * primerNodo;
 
 	
-	ListaCircular(){ 
+	listaArticulo(){ 
 		primerNodo = NULL;
 	}	
 	
