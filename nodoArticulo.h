@@ -15,23 +15,23 @@ struct nodoArticulo {
     string codigo;
     int cantidadAlmacen;
     int tiempoFabricacion;
-    char categoria;
+    string categoria;
     string ubicacion;
     nodoArticulo * siguiente;
     nodoArticulo * anterior;
     // constructor
 
-    nodoComponente() {
+    nodoArticulo() {
 	    codigo = "";
 	    cantidadAlmacen = 0;
 	    tiempoFabricacion = 0;
-	    categoria = '';
+	    categoria = "";
 	    ubicacion = "";
 	    siguiente = NULL;
     	anterior = NULL;
     }
     
-    nodoComponente(string pcodigo, int pcantidadAlmacen, int ptiempoFabricacion, char pcategoria, string pubicacion) {
+    nodoArticulo(string pcodigo, int pcantidadAlmacen, int ptiempoFabricacion, string pcategoria, string pubicacion) {
 		codigo = pcodigo;
 		cantidadAlmacen = pcantidadAlmacen;
 		tiempoFabricacion = ptiempoFabricacion;

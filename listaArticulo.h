@@ -5,22 +5,25 @@
 #include <cstdlib>
 #include <iostream>
 #include "nodoArticulo.h"
+#include <fstream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
 struct listaArticulo;
 
 struct listaArticulo{
-	Nodo * primerNodo;
+	nodoArticulo * primerNodo;
 
 	
 	ListaCircular(){ 
 		primerNodo = NULL;
 	}	
 	
-	void insertar;
-	void imprimir;
-	nodoArticulo * buscar
-	nodoArticulo * eliminar;
-	
+	void insertar(string pcodigo, int pcantidadAlmacen, int ptiempoFabricacion, string pcategoria, string pubicacion);
+	void imprimir();
+	nodoArticulo * buscar(string pcodigo);
+	nodoArticulo * eliminar(string pcodigo);
+	void leerArticulo();
 }; 
