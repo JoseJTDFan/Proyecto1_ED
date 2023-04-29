@@ -1,24 +1,27 @@
 #include <cstdlib>
 #include <iostream>
-#include <nodoCliente.h>
+#include "nodoCliente.h"
+#include <fstream>
+#include <sstream>
 
 
 using namespace std;
 
-struct listaCliente;
+struct listaClientes;
 
-struct listaCliente{
-    Nodo * nodoSiguiente;
+struct listaClientes{
+    nodoCliente * primerNodo;
 
 
-    listaSimpleClientes(){
-        nodoSiguiente = NULL;
+    listaClientes(){
+        primerNodo = NULL;
     }
 
-    void insertar;
-    void imprimir;
+    void insertar(string codigoCliente,string nombreCliente, int prioridadCliente);
+    void imprimir();
     nodoCliente * eliminar;
-
+	bool existeClienteEnLista(string pcodigo);
+	bool leerClientes();
 };
 
 

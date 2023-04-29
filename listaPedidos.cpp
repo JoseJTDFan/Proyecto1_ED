@@ -78,9 +78,9 @@ nodoPedido * listaPedidos::borrarAlFinal (){
 void listaPedidos::imprimir(){
 	nodoPedido * tmp = primerNodo;
 	while(tmp != NULL){
-		// aqui programar lo que necesiten en cada iteraci�n
+		// aqu� programar lo que necesiten en cada iteraci�n
 		cout<<"Pedido: "<<tmp->numPedido<<endl;
-		cout<<"C�digo: "<<tmp->codCliente<<endl;
+		cout<<"Codigo: "<<tmp->codCliente<<endl;
 		tmp->imprimir();
 		tmp = tmp->siguiente;
 	}

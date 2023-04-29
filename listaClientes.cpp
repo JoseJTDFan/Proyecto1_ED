@@ -4,29 +4,31 @@
 //insertar cliente a la lista
 
 void listaClientes::imprimir(){
-    Nodo * tmp = primerNodo; // el nodo no debe ser el clientes? en lugar de el de la lista?
+    nodoCliente * tmp = primerNodo; // el nodo no debe ser el clientes? en lugar de el de la lista?
     while(tmp != NULL){
-        // aqui programar lo que necesiten en cada iteracion
-        tmp->imprimir();
-        tmp = tmp->siguiente;
+    	cout<<"Codigo: "<<tmp->codigo<<endl;
+		cout<<"Nombre: "<<tmp->nombre<<endl;
+		cout<<"Prioridad: "<<tmp->prioridad<<endl;
+		tmp = tmp->siguiente;
     }
     cout<<endl;
 }
 
-void listaClientes::insertar(string codigoCliente,string nombreCliente, int prioridadCliente){}
-if (primerNodo == NULL){
-primerNodo = new nodoCliente(string codigoCliente,string nombreCliente, int prioridadCliente);
-}
-else{
-nodoCliente * nuevo = new nodoCliente(string codigoCliente,string nombreCliente, int prioridadCliente);
-nuevo->siguiente = primerNodo;
-primerNodo = nuevo;
+void listaClientes::insertar(string codigoCliente,string nombreCliente, int prioridadCliente){
+	if (primerNodo == NULL){
+		primerNodo = new nodoCliente(codigoCliente, nombreCliente, prioridadCliente);
+	}
+	else{
+		nodoCliente * nuevo = new nodoCliente(codigoCliente, nombreCliente, prioridadCliente);
+		nuevo->siguiente = primerNodo;
+		primerNodo = nuevo;
+	}
 }
 
-bool listaClientes::existeClienteEnLista(listaClientes  * listaDeClientes, string codigo) {
-    NodoCliente* nodoActual = listaDeCliente->siguiente;
+bool listaClientes::existeClienteEnLista(string pcodigo){
+    nodoCliente * nodoActual = primerNodo;
     while (nodoActual != NULL) {
-        if (nodoActual->codigo == codigo) {
+        if (nodoActual->codigo == pcodigo) {
             return true; // El cliente ya existe en la lista
         }
         nodoActual = nodoActual->siguiente;
@@ -47,12 +49,12 @@ bool listaClientes::leerClientes(){
             string codigoCliente, nombreCliente;
             int prioridad;
             ss >> codigoCliente >> nombreCliente >> prioridad;
-            if(*cliente existe* == false)
-            insertar(codigoCliente, nombreCliente, prioridad);
+            if(existeClienteEnLista(codigoCliente) == false)
+            	insertar(codigoCliente, nombreCliente, prioridad);
             else {
-                return false
-                else{
-                    return false;
-                }
-            }
-
+                return false;
+        	}
+		}
+	}
+	return true;
+}
