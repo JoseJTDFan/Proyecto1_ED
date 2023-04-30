@@ -16,14 +16,29 @@ int main(int argc, char *argv[])
 	pedidos.leerPedidos();
 	
 	pedidos.imprimir();
-	
-	if(articulos.leerArticulo()==false | clientes.leerClientes()== false){
+
+
+    if(articulos.leerArticulo()==false | clientes.leerClientes()== false){
 		cout<<"No se puede iniciar la simulacion";
 	}
 	else{
 		//articulos.imprimir();
 		clientes.imprimir();
 	}
+
+    while(clientes.primerNodo->siguiente != NULL){
+        nodoCliente * tmp = clientes.primerNodo;
+        if(tmp->prioridad == 10){
+            pedidos.insertarAlInicio(articulos.primerNodo->codigo,tmp->codigo,tmp);
+        }
+        else{
+            pedidos.insertarAlFinal(articulos.primerNodo->codigo, tmp->codigo,primerNodo);
+        }
+        tmp = tmp->siguiente;
+    }
+
+
+
 	
 	
 }

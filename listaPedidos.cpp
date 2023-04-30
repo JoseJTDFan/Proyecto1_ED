@@ -4,6 +4,7 @@
 
 #include "nodoPedido.h"
 #include "listaPedidos.h"
+#include "listaClientes.h"
 
 
 void listaPedidos::insertarAlInicio (int pnumPedido, string pcodCliente, Nodo * nodo)
@@ -146,6 +147,7 @@ void moverCarpeta(string carpetaActual, string carpetaNueva, string archivo){
     // mover el archivo de origen a destino
     int resultado = rename(rutaActual.c_str(), rutaNueva.c_str());
 
+<<<<<<< Updated upstream
     if (resultado != 0) {
         perror("Error al mover el archivo");
     }
@@ -205,4 +207,6 @@ bool listaPedidos::leerPedidos() {
         return false;
     }
     return true;
+
 }
+
