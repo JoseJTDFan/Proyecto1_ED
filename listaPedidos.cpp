@@ -5,6 +5,7 @@
 #include "nodoPedido.h"
 #include "listaPedidos.h"
 
+
 void listaPedidos::insertarAlInicio (int pnumPedido, string pcodCliente, Nodo * nodo)
     {
             // si no hay elementos
@@ -138,25 +139,70 @@ nodoPedido * listaPedidos::borrarEnPosicion (int posicion){
 	}
 }
 
-bool listaPedidos::leerPedidos(){
-    ifstream archivo("Pedidos.txt"); 
-    string linea;
+void moverCarpeta(string carpetaActual, string carpetaNueva, string archivo){
+	string rutaActual = string(carpetaActual) + "/" + archivo;
+    string rutaNueva = string(carpetaNueva) + "/" + archivo;
 
-    getline(archivo, linea); // Leer linea
-    int pnumPedido = stoi(linea);
-    
-    getline(archivo, linea);
-    string pcodCliente = linea;
+    // mover el archivo de origen a destino
+    int resultado = rename(rutaActual.c_str(), rutaNueva.c_str());
 
-    ListaSimple lista;
-    
-	while (getline(archivo, linea)) {
-        stringstream ss(linea);
-        string pcodigo;
-        int pcantidad;
-        ss >> pcodigo >> pcantidad;
-        //if (buscar(pcodigo)==NULL){
-        lista.insertarAlFinal(pcodigo, pcantidad);
+    if (resultado != 0) {
+        perror("Error al mover el archivo");
     }
-    insertarAlFinal(pnumPedido, pcodCliente,lista.primerNodo);
+}
+
+bool endsWith(const string& str, const string& suffix) {
+    return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+}
+
+bool listaPedidos::leerPedidos() {
+    string carpeta = "Pedidos/";
+    DIR* dir;
+    struct dirent* ent;
+    if ((dir = opendir(carpeta.c_str())) != NULL) {
+        while ((ent = readdir(dir)) != NULL) {
+            string filename(ent->d_name);
+            bool bandera = true;
+            if (endsWith(filename, ".txt")) {
+                string path = carpeta + filename;
+                ifstream archivo(path.c_str());
+                string linea;
+                
+                int pnumPedido;
+			    string pcodCliente;
+			    ListaSimple lista;
+
+                getline(archivo, linea); // Leer linea
+                pnumPedido = stoi(linea);
+
+                getline(archivo, linea);
+                pcodCliente = linea;
+
+                while (getline(archivo, linea)) {
+                    stringstream ss(linea);
+                    string pcodigo;
+                    int pcantidad;
+                    ss >> pcodigo >> pcantidad;
+                    if (lista.esta(pcodigo)==false){
+                    	lista.insertarAlFinal(pcodigo, pcantidad);
+					}
+					else{
+						moverCarpeta("Pedidos/", "Errores/", filename);
+						bandera = false;
+						break;
+					}
+                }
+                if (bandera){
+	                insertarAlFinal(pnumPedido, pcodCliente, lista.primerNodo);
+	                moverCarpeta("Pedidos/", "Revisados/", filename);
+				}
+            }
+        }
+        closedir(dir);
+    }
+    else {
+        perror("No se pudo abrir la carpeta.");
+        return false;
+    }
+    return true;
 }

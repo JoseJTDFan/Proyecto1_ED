@@ -10,6 +10,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <iterator>
+#include <cstdlib>
+#include <cstdio>
+#include <dirent.h>
 
 using namespace std;
 
