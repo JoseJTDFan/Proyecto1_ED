@@ -94,7 +94,7 @@ int ListaSimple::largo (void){
 	return contador;
 }
 
-//retorna true si el codigo del argumento est� en la lista
+//retorna true si el codigo del argumento esta en la lista
 bool ListaSimple::esta(string nom){
 	Nodo * temp = primerNodo;
 	while (temp!=NULL){
