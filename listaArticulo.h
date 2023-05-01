@@ -8,7 +8,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <bar>
 
 using namespace std;
 

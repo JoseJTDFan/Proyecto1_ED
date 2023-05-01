@@ -1,7 +1,7 @@
 ////// JOSE JULIAN BRENES GARRO y ALEJANDRO PACHECO SANCHEZ
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
-#include "listaArticulo.cpp"
+#include "listaArticulo.h"
 
 
 // INSERTAR AL INICIO
@@ -53,7 +53,7 @@ nodoArticulo * listaArticulo::buscar(string pcodigo)
 nodoArticulo * listaArticulo::eliminar(string pcodigo){
 	nodoArticulo * eliminado = buscar(pcodigo);
 	
-    if (eliminado != NULL){ // si lo encontro
+	if (eliminado != NULL){ // sí lo encontró
 		if (primerNodo->siguiente == primerNodo) // solo un elemento
 			eliminado->siguiente = eliminado->anterior = NULL;
 		else{
@@ -78,7 +78,7 @@ bool listaArticulo::leerArticulo(){
             string codigo, categoria, ubicacion;
             int cantidadAlmacen, tiempoFabricacion;
             ss >> codigo >> cantidadAlmacen >> tiempoFabricacion >> categoria >> ubicacion;
-            if (cantidadAlmacen <b0 || buscar(codigo)!=NULL){
+            if (cantidadAlmacen<0 || buscar(codigo)!=NULL){
             	return false;
 			}
 			else if(categoria!="A" && categoria!="B" && categoria!="C"){
@@ -91,9 +91,4 @@ bool listaArticulo::leerArticulo(){
         return false;
     }
     return true;
-}
-
-
-void listaArticulo::fabricas(){
-
 }

@@ -1,9 +1,10 @@
+#pragma once
 #include <cstdlib>
 #include <iostream>
 
-//PRUEBA
-
 using namespace std;
+
+struct nodoCliente;
 
 struct nodoCliente{
     string codigo;

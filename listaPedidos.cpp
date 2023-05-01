@@ -4,7 +4,6 @@
 
 #include "nodoPedido.h"
 #include "listaPedidos.h"
-#include "listaClientes.h"
 
 
 void listaPedidos::insertarAlInicio (int pnumPedido, string pcodCliente, Nodo * nodo)
@@ -140,16 +139,15 @@ nodoPedido * listaPedidos::borrarEnPosicion (int posicion){
 	}
 }
 
-void moverCarpeta(string carpetaActual, string carpetaNueva, string archivo){
-	string rutaActual = string(carpetaActual) + "/" + archivo;
-    string rutaNueva = string(carpetaNueva) + "/" + archivo;
+void moverCarpeta(string carpetaDestino, string nombreArchivo){
+    string rutaOrigen = "Pedidos/" + nombreArchivo;
+    string rutaDestino = carpetaDestino + nombreArchivo;
 
-    // mover el archivo de origen a destino
-    int resultado = rename(rutaActual.c_str(), rutaNueva.c_str());
-
-<<<<<<< Updated upstream
-    if (resultado != 0) {
-        perror("Error al mover el archivo");
+    if (rename(rutaOrigen.c_str(), rutaDestino.c_str()) != 0) {
+        cout << "Error al mover archivo." << endl;
+    }
+    else {
+        cout << "Archivo movido correctamente." << endl;
     }
 }
 
@@ -157,48 +155,66 @@ bool endsWith(const string& str, const string& suffix) {
     return str.size() >= suffix.size() && str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
 }
 
-bool listaPedidos::leerPedidos() {
+bool listaPedidos::leerPedidos(listaClientes &pclientes, listaArticulo &particulos) {
     string carpeta = "Pedidos/";
     DIR* dir;
+    
+    string auxNameFile;
     struct dirent* ent;
     if ((dir = opendir(carpeta.c_str())) != NULL) {
         while ((ent = readdir(dir)) != NULL) {
             string filename(ent->d_name);
+            auxNameFile = filename;
+            
             bool bandera = true;
+            int pnumPedido;
+			string pcodCliente;
+			ListaSimple lista;
+			nodoCliente * tempCliente;
+			
             if (endsWith(filename, ".txt")) {
                 string path = carpeta + filename;
                 ifstream archivo(path.c_str());
                 string linea;
-                
-                int pnumPedido;
-			    string pcodCliente;
-			    ListaSimple lista;
 
                 getline(archivo, linea); // Leer linea
                 pnumPedido = stoi(linea);
 
                 getline(archivo, linea);
                 pcodCliente = linea;
+                tempCliente = pclientes.buscar(pcodCliente);
+                
+                if (tempCliente==NULL){
+                	bandera = false;
+                	break;
+				}
 
                 while (getline(archivo, linea)) {
                     stringstream ss(linea);
                     string pcodigo;
                     int pcantidad;
                     ss >> pcodigo >> pcantidad;
-                    if (lista.esta(pcodigo)==false){
+                    if (lista.buscar(pcodigo)==NULL){
                     	lista.insertarAlFinal(pcodigo, pcantidad);
 					}
 					else{
-						moverCarpeta("Pedidos/", "Errores/", filename);
 						bandera = false;
+						cout<<"wiiii"<<endl;
 						break;
 					}
                 }
-                if (bandera){
-	                insertarAlFinal(pnumPedido, pcodCliente, lista.primerNodo);
-	                moverCarpeta("Pedidos/", "Revisados/", filename);
-				}
             }
+            if (bandera){
+            	if (tempCliente->prioridad==10)
+            		insertarAlInicio(pnumPedido, pcodCliente, lista.primerNodo);
+                else	
+					insertarAlFinal(pnumPedido, pcodCliente, lista.primerNodo);
+				moverCarpeta("Revisados/", auxNameFile);
+			}
+			else{
+				moverCarpeta("Errores/", auxNameFile);
+				
+			}
         }
         closedir(dir);
     }
@@ -207,6 +223,4 @@ bool listaPedidos::leerPedidos() {
         return false;
     }
     return true;
-
 }
-

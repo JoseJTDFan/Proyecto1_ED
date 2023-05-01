@@ -4,9 +4,14 @@
 #pragma once
 #include <cstdlib>
 #include <iostream>
+#include "listaArticulo.h"
+#include "listaPedidos.h"
+#include "listaClientes.h"
 #include "nodoArticulo.h"
 #include "nodoPedido.h"
+#include "nodoCliente.h"
 #include <fstream>
+#include <thread>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -37,5 +42,5 @@ struct listaPedidos{
 	int largo (void);
 	void insertarEnPosicion (int pnumPedido, string pcodCliente, Nodo * nodo, int posicion);
 	nodoPedido * borrarEnPosicion (int posicion);	
-	bool leerPedidos();
+	bool leerPedidos(listaClientes &pclientes, listaArticulo &particulos);
 }; 

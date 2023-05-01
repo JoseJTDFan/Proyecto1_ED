@@ -95,15 +95,15 @@ int ListaSimple::largo (void){
 }
 
 //retorna true si el codigo del argumento esta en la lista
-bool ListaSimple::esta(string nom){
+Nodo * ListaSimple::buscar(string nom){
 	Nodo * temp = primerNodo;
 	while (temp!=NULL){
 		if (nom==temp->codigo){
-			return true;
+			return temp;
 		   }
 		temp = temp-> siguiente;
 	   }
-	return false;
+	return NULL;
 }
    
 void ListaSimple::insertarEnPosicion (string codigo, int cantidad, int posicion){

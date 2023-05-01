@@ -1,3 +1,4 @@
+#pragma once
 #include <cstdlib>
 #include <iostream>
 #include "nodoCliente.h"
@@ -22,6 +23,7 @@ struct listaClientes{
     nodoCliente * eliminar;
 	bool existeClienteEnLista(string pcodigo);
 	bool leerClientes();
+	nodoCliente * buscar(string pcodigo);
 };
 
 

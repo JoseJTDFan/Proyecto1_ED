@@ -2,6 +2,7 @@
 ////// ESTRUCTURAS DE DATOS
 ////// I SEMESTRE 2023
 
+#pragma once
 #include <cstdlib>
 #include <iostream>
 using namespace std;
@@ -47,7 +48,7 @@ struct ListaSimple {
 	Nodo * borrarAlFinal ();
 	void imprimir();
 	int largo (void);
-	bool esta(string nom);
+	Nodo * buscar(string nom);
 	void insertarEnPosicion (string codigo, int cantidad, int posicion);
 	Nodo * borrarEnPosicion (int posicion);
 };

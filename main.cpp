@@ -5,6 +5,7 @@
 #include "listaArticulo.h"
 #include "listaPedidos.h"
 #include "listaClientes.h"
+#include <thread>
 
 int main(int argc, char *argv[])
 {
@@ -12,33 +13,21 @@ int main(int argc, char *argv[])
 	listaPedidos pedidos;
 	listaClientes clientes;
 	
-	
-	pedidos.leerPedidos();
-	
-	pedidos.imprimir();
-
-
-    if(articulos.leerArticulo()==false | clientes.leerClientes()== false){
+	if(articulos.leerArticulo()==false | clientes.leerClientes()== false){
 		cout<<"No se puede iniciar la simulacion";
 	}
 	else{
 		//articulos.imprimir();
-		clientes.imprimir();
+		//clientes.imprimir();
 	}
-
-    while(clientes.primerNodo->siguiente != NULL){
-        nodoCliente * tmp = clientes.primerNodo;
-        if(tmp->prioridad == 10){
-            pedidos.insertarAlInicio(articulos.primerNodo->codigo,tmp->codigo,tmp);
-        }
-        else{
-            pedidos.insertarAlFinal(articulos.primerNodo->codigo, tmp->codigo,primerNodo);
-        }
-        tmp = tmp->siguiente;
-    }
-
-
-
+//	while(true){
+		//std::thread thread();
+		//thread.join();
+  		//std::this_thread::sleep_for(std::chrono::seconds(10));
+//	}
+	
+	pedidos.leerPedidos(clientes,articulos);
+	pedidos.imprimir();
 	
 	
 }

@@ -36,6 +36,16 @@ bool listaClientes::existeClienteEnLista(string pcodigo){
     return false; // El cliente no existe en la lista
 }
 
+nodoCliente * listaClientes::buscar(string pcodigo){
+    nodoCliente * nodoActual = primerNodo;
+    while (nodoActual != NULL) {
+        if (nodoActual->codigo == pcodigo) {
+            return nodoActual;
+        }
+        nodoActual = nodoActual->siguiente;
+    }
+    return NULL; // El cliente no existe en la lista
+}
 
 
 bool listaClientes::leerClientes(){
